@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
+
 
 class Pedido(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -16,8 +17,10 @@ class Pedido(models.Model):
             ('F', 'Finalizado'),
         )
     )
+
     def __str__(self):
         return f'Pedido N. {self.pk}'
+
 
 class ItemPedido(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
@@ -33,7 +36,6 @@ class ItemPedido(models.Model):
     def __str__(self):
         return f'Item do {self.pedido}'
 
-    
     class Meta:
         verbose_name = 'Item do Pedido'
         verbose_name_plural = 'Itens do Pedido'
