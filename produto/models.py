@@ -8,6 +8,7 @@ from PIL import Image
 import os
 from django.conf import settings
 from django.utils.text import slugify
+from utils import utils
 
 
 class Produto(models.Model):
@@ -30,11 +31,11 @@ class Produto(models.Model):
     )
 
     def preco_formatado(self):
-        return f'R${self.preco}' .replace('.', ',')
+        return utils.formata_preco(self.preco)
     preco_formatado.short_description = 'Preço'
 
     def preco_promo_formatado(self):
-        return f'R${self.preco_promocional}' .replace('.', ',')
+        return utils.formata_preco(self.preco_promocional)
     preco_promo_formatado.short_description = 'Preço Promocional'
 
     @staticmethod
