@@ -16,7 +16,7 @@ class Produto(models.Model):
     descricao_longa = models.TextField()
     imagem = models.ImageField(
         upload_to='produto_imagens/%Y/%m/', blank=True, null=True)
-    slug = models.SlugField(unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
     preco = models.FloatField(default=0, verbose_name='preço')
     preco_promocional = models.FloatField(
         default=0, verbose_name='preço promocional')
@@ -35,7 +35,7 @@ class Produto(models.Model):
 
     def preco_promo_formatado(self):
         return f'R${self.preco_promocional}' .replace('.', ',')
-    preco_formatado.short_description = 'Preço Promocional'
+    preco_promo_formatado.short_description = 'Preço Promocional'
 
     @staticmethod
     def resize_image(img, new_width=800):
