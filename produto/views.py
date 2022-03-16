@@ -161,6 +161,6 @@ class Cart(View):
         return render(self.request, 'produto/cart.html', contexto)
 
 
-class Finish(View):
+class Checkout(View):
     def get(self, *args, **kwargs):
-        return HttpResponse('Finish')
+        return HttpResponse('Checkout')
