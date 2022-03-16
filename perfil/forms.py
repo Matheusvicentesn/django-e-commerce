@@ -38,18 +38,19 @@ class UserForm(forms.ModelForm):
         password_data = cleaned.get('password')
         password2_data = cleaned.get('password2')
 
-        usario_db = User.objects.filter(username=usuario_data).first()
+        usuario_db = User.objects.filter(username=usuario_data).first()
         email_db = User.objects.filter(email=email_data).first()
         
         error_msg_user_exists = 'Usuário já existe'
         error_msg_email_exists = 'Email já existe'
         error_msg_password_match = 'As duas senhas não conferem'
         error_msg_password_short = 'Senha pequena, mínimo 6 caracteres'
+        error_msg_required_field = 'Este campo é obrigatório'
 
         # usuario logado
         if self.usuario:
-            if usario_db:
-                if usuario_data != usario_db.username:
+            if usuario_db:
+                if usuario_data != usuario_db.username:
                     validation_error_msgs['username'] = error_msg_user_exists
             if email_db:
                 if email_data != email_db.email:
@@ -67,6 +68,24 @@ class UserForm(forms.ModelForm):
 
         # usuario deslogados
         else:
-            ...
+            print(usuario_db, usuario_data)
+            if usuario_db:
+                validation_error_msgs['username'] = error_msg_user_exists
+            if email_db:
+                validation_error_msgs['email'] = error_msg_email_exists
+
+            if not password_data:
+                validation_error_msgs['password'] = error_msg_required_field
+            
+            if not password2_data:
+                validation_error_msgs['password2'] = error_msg_required_field
+            
+            if password_data != password2_data:
+                validation_error_msgs['password'] = error_msg_password_match
+                validation_error_msgs['password2'] = error_msg_password_match
+            
+            if len(password_data) < 6:
+                validation_error_msgs['password'] = error_msg_password_short
+                
         if validation_error_msgs:
             raise(forms.ValidationError(validation_error_msgs))
