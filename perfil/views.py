@@ -40,6 +40,9 @@ class BasePerfil(View):
         self.userform = self.contexto['userform']
         self.perfilform = self.contexto['perfilform']
 
+        if self.request.user.is_authenticated:
+            self.template_name = 'perfil/atualizar.html'
+            
         self.render = render(self.request, self.template_name, self.contexto)
 
     def get(self, *args, **kwargs):
@@ -72,6 +75,17 @@ class Criar(BasePerfil):
             usuario.last_name = last_name
             usuario.save()
 
+            if not self.perfil:
+                self.perfilform.cleaned_data['usuario'] = usuario
+                print(self.perfilform.cleaned_data)
+                perfil = models.Perfil(**self.perfilform.cleaned_data)
+                perfil.save()
+
+            else:
+                perfil = self.perfilform.save(commit=False)
+                perfil.usuario = usuario
+                perfil.save()
+
         # usuário não logado
         else:
             usuario = self.userform.save(commit=False)
@@ -82,9 +96,16 @@ class Criar(BasePerfil):
             perfil.usuario = usuario
             perfil.save()
 
+        if password:
+            autentica = authenticate(
+                self.request, username=usuario, password=password)
+
+            if autentica:
+                login(self.request, user=usuario)
+
         self.request.session['cart'] = self.cart
         self.request.session
-        
+
         return self.render
 
 
