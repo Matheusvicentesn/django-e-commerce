@@ -6,7 +6,6 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 import copy
-
 from . import models
 from . import forms
 
@@ -16,6 +15,8 @@ class BasePerfil(View):
 
     def setup(self, *args, **kwargs):
         super().setup(*args, **kwargs)
+
+        self.cart = copy.deepcopy(self.request.session.get('cart', {}))
 
         self.perfil = None
 
@@ -47,7 +48,8 @@ class BasePerfil(View):
 
 class Criar(BasePerfil):
     def post(self, *args, **kwargs):
-        if not self.userform.is_valid() or not self.perfilform.is_valid():
+        # if not self.userform.is_valid() or not self.perfilform.is_valid():
+        if not self.userform.is_valid():
             return self.render
 
         username = self.userform.cleaned_data.get('username')
@@ -56,10 +58,20 @@ class Criar(BasePerfil):
         first_name = self.userform.cleaned_data.get('first_name')
         last_name = self.userform.cleaned_data.get('last_name')
 
-
         # usuário logado
         if self.request.user.is_authenticated:
-            pass
+            usuario = get_object_or_404(
+                User, username=self.request.user.username)
+            usuario.username = username
+
+            if password:
+                usuario.set_password(password)
+
+            usuario.email = email
+            usuario.first_name = first_name
+            usuario.last_name = last_name
+            usuario.save()
+
         # usuário não logado
         else:
             usuario = self.userform.save(commit=False)
@@ -70,6 +82,9 @@ class Criar(BasePerfil):
             perfil.usuario = usuario
             perfil.save()
 
+        self.request.session['cart'] = self.cart
+        self.request.session
+        
         return self.render
 
 
