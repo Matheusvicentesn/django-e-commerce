@@ -68,7 +68,6 @@ class UserForm(forms.ModelForm):
 
         # usuario deslogados
         else:
-            print(usuario_db, usuario_data)
             if usuario_db:
                 validation_error_msgs['username'] = error_msg_user_exists
             if email_db:
