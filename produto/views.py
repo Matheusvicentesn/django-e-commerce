@@ -5,7 +5,7 @@ from django.views import View
 from django.http import HttpResponse
 from django.contrib import messages
 from . import models
-from pprint import pprint
+from perfil.models import Perfil
 
 
 class ListaProdutos(ListView):
@@ -48,11 +48,8 @@ class AddToCart(View):
         produto_id = produto.id
         produto_nome = produto.nome
         variacao_nome = variacao.nome
-        # variacao_id = variacao.id
         preco = variacao.preco
         preco_promocional = variacao.preco_promocional
-        # preco_quantitativo
-        # preco_quantitativo_promocional
         quantidade = 1
         slug = produto.slug
         imagem = produto.imagem
@@ -165,6 +162,23 @@ class Checkout(View):
     def get(self, *args, **kwargs):
         if not self.request.user.is_authenticated:
             return redirect('perfil:criar')
+        
+        perfil = Perfil.objects.filter(usuario=self.request.user).exists()
+
+        if not perfil:
+            messages.error(
+                self.request,
+                'Usuário sem perfil'
+            )
+            return redirect('perfil:criar')
+
+        if not self.request.session.get('cart'):   
+            messages.error(
+                self.request,
+                'Seu carrinho está vazio'
+            )
+            return redirect('produto:lista')
+    
         contexto = {
             'usuario': self.request.user,
             'cart': self.request.session['cart'],

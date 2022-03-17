@@ -67,11 +67,20 @@
                     <button type="submit" class="btn btn-primary btn-lg btn-block">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         Adicionar ao carrinho
-                    </button>
                 </div>
 
             </form>
+        </button>
+        <br>
+            <form action="{% url 'produto:cart'%}" id="form-add-to-cart">
+                <div class="text-left">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        ir ao carrinho
+                </div>
 
+            </form>
+        </button>
 
         </div>
     </div>
