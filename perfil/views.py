@@ -42,7 +42,7 @@ class BasePerfil(View):
 
         if self.request.user.is_authenticated:
             self.template_name = 'perfil/atualizar.html'
-            
+
         self.render = render(self.request, self.template_name, self.contexto)
 
     def get(self, *args, **kwargs):
@@ -51,8 +51,7 @@ class BasePerfil(View):
 
 class Criar(BasePerfil):
     def post(self, *args, **kwargs):
-        # if not self.userform.is_valid() or not self.perfilform.is_valid():
-        if not self.userform.is_valid():
+        if not self.userform.is_valid() or not self.perfilform.is_valid():
             return self.render
 
         username = self.userform.cleaned_data.get('username')
@@ -106,6 +105,17 @@ class Criar(BasePerfil):
         self.request.session['cart'] = self.cart
         self.request.session
 
+        messages.success(
+            self.request,
+            'Seu cadastro foi criado e atualizado com sucesso'
+        )
+
+        messages.success(
+            self.request,
+            'Você fez login no sistema e pode concluir sua compra'
+        )
+
+        return redirect('perfil:criar')
         return self.render
 
 
@@ -115,10 +125,32 @@ class Atualizar(View):
 
 
 class Login(View):
-    def get(self, *args, **kwargs):
-        return HttpResponse('Login')
+    def post(self, *args, **kwargs):
+        username = self.request.POST.get('username')
+        password = self.request.POST.get('password')
+        print(username, password)
+
+        if not username or not password:
+            messages.error(
+                self.request,
+                'Usuário ou senha inválidos'
+            )
+            return redirect('perfil:criar')
+        usuario = authenticate(
+            self.request, username=username, password=password)
+
+        if not usuario:
+            messages.error(self.request, 'Usuário ou senha inválidos')
+            return redirect('perfil:criar')
+        login(self.request, user=usuario)
+        messages.success(self.request,'Login efetuado com sucesso!')
+        return redirect('produto:cart')
 
 
 class Logout(View):
     def get(self, *args, **kwargs):
-        return HttpResponse('Logout')
+        cart = copy.deepcopy(self.request.session.get('cart'))
+        logout(self.request)
+        self.request.session['cart'] = cart
+        self.request.session.save()
+        return redirect('produto:lista')
