@@ -9,64 +9,8 @@
     <div class="col">
         <h3>Carrinho de compras</h3>
         <p class="lead">Os produtos, quantidades e preços que você escolheu.</p>
-
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th class="d-none d-lg-block">Imagem</th>
-                    <th>
-                        <p align="center">Produto</p>
-                    </th>
-                    <th>
-                        <p align="center">Variação</p>
-                    </th>
-                    <th>
-                        <p align="center">Quantidade</p>
-                    </th>
-                    <th>
-                        <p align="center">Total</p>
-                    </th>
-                </tr>
-
-                {% for linha in cart.values %}
-                <tr>
-                    <td class="d-none d-lg-block">
-                        <img style='width:auto; height:60px; ' class="cart-img"
-                            src="{% get_media_prefix%}{{linha.imagem}}">
-                    </td>
-                    <td>
-                        <a href="{% url 'produto:detalhe' linha.slug%}">
-                            {{linha.produto_nome}}
-                        </a>
-                        <a class="ml-3" href="{% url 'produto:removetocart'%}?vid={{ linha.variacao_id }}">
-                            <i class="fas fa-times-circle text-danger" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                    <td>{{linha.variacao_nome}}</td>
-                    <td>
-                        <p align="center">{{linha.quantidade}}x<br>
-                            {% if linha.preco_promocional%}
-                            {{linha.preco_promocional|formata_preco}}
-                            {%else%}
-                            {{linha.preco|formata_preco}}</p>
-                    </td>
-                    {% endif %}
-                    {% if linha.preco_quantitativo_promocional%}
-                    <td>
-                        <br>
-                        <p align="center">{{linha.preco_quantitativo_promocional|formata_preco}}</p>
-                    </td>
-
-                    {% else %}
-
-                    <td>linha.preco_quantitativo</td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
-
-
-            </table>
-        </div>
+        
+        {% include 'parciais/_cart.html'%}
     </div>
 </div>
 
@@ -86,9 +30,15 @@
         </div>
     </div>
     <div class="col-lg mt-auto">
-        <a class="btn btn-lg btn-block btn-primary" href="#">
-            Finalizar a compra
+        {% if request.user.is_authenticated %}
+        <a class="btn btn-lg btn-block btn-primary" href="{%url 'produto:checkout'%}">
+            Comprar
         </a>
+        {% else %}
+        <a class="btn btn-lg btn-block btn-primary" href="{%url 'perfil:criar'%}">
+            Comprar
+        </a>
+        {% endif %}
     </div>
 </div>
 

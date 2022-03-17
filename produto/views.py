@@ -163,4 +163,10 @@ class Cart(View):
 
 class Checkout(View):
     def get(self, *args, **kwargs):
-        return HttpResponse('Checkout')
+        if not self.request.user.is_authenticated:
+            return redirect('perfil:criar')
+        contexto = {
+            'usuario': self.request.user,
+            'cart': self.request.session['cart'],
+        }
+        return render(self.request, 'produto/checkout.html', contexto)

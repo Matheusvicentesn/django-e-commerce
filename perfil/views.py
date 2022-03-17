@@ -52,6 +52,11 @@ class BasePerfil(View):
 class Criar(BasePerfil):
     def post(self, *args, **kwargs):
         if not self.userform.is_valid() or not self.perfilform.is_valid():
+            messages.error(
+                self.request,
+                'Existem erros no formulário. Verifique se todos os campos \
+                foram preenchidos corretamente'
+            )
             return self.render
 
         username = self.userform.cleaned_data.get('username')
@@ -115,7 +120,7 @@ class Criar(BasePerfil):
             'Você fez login no sistema e pode concluir sua compra'
         )
 
-        return redirect('perfil:criar')
+        return redirect('produto:cart')
         return self.render
 
 
@@ -143,7 +148,7 @@ class Login(View):
             messages.error(self.request, 'Usuário ou senha inválidos')
             return redirect('perfil:criar')
         login(self.request, user=usuario)
-        messages.success(self.request,'Login efetuado com sucesso!')
+        messages.success(self.request, 'Login efetuado com sucesso!')
         return redirect('produto:cart')
 
 
