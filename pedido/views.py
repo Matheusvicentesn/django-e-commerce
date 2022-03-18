@@ -10,12 +10,25 @@ from produto.models import Variacao
 from utils import utils
 from .models import Pedido, ItemPedido
 
+ 
+class DispatchLoginRequiredMixin(View):
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('perfil:criar')
 
-class Pagar(DetailView):
+        return super().dispatch(*args, **kwargs)
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(usuario=self.request.user)
+        return qs
+
+
+class Pagar(DispatchLoginRequiredMixin, DetailView):
     template_name = 'pedido/pagar.html'
     model = Pedido
     pk_url_kwarg = 'pk'
-    context_object_name = 'pedido'    
+    context_object_name = 'pedido'
 
 
 class SalvarPedido(View):
