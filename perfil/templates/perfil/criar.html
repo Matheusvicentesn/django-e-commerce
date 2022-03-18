@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
+{% block titulo%}Criar Perfil |{%endblock%}
+
 {% block conteudo%}
 
-{% if not request.user.is_authenticated %}
+
 <div class="row">
+    {% if not request.user.is_authenticated %}
     <div class="col-lg mt-3">
         <h4>Login</h4>
         <p>Se você já é cadastrado, pode entrar com seu usuário e senha abaixo:</p>
@@ -25,7 +28,7 @@
     </div>
     {% endif %}
     <div class="col-lg mt-3">
-        {% block titulo %}
+        {% block titulocadastro %}
         <h4>Cadastro</h4>
         <p>Sem cadastro ? Preencha o formulário abaixo para se cadastrar</p>
         {% endblock  %}
