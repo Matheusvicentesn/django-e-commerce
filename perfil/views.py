@@ -108,7 +108,7 @@ class Criar(BasePerfil):
                 login(self.request, user=usuario)
 
         self.request.session['cart'] = self.cart
-        self.request.session
+        self.request.session.save()
 
         messages.success(
             self.request,
@@ -133,7 +133,6 @@ class Login(View):
     def post(self, *args, **kwargs):
         username = self.request.POST.get('username')
         password = self.request.POST.get('password')
-        print(username, password)
 
         if not username or not password:
             messages.error(

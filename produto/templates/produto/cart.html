@@ -49,6 +49,14 @@
     <div class="col">
         <h3>Carrinho de Vazio</h3>
         <p class="lead">Não há produtos no seu carrinho</p>
+        <form action="{% url 'produto:lista'%}" id="form-add-to-cart">
+            <div class="text-left">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    Voltar a loja
+            </div>
+
+        </form>
     </div>
 </div>
 {% endif %}
