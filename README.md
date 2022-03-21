@@ -1,7 +1,6 @@
 # Projeto E-commerce 
 <p>deployed on aws at: <a href="https://projetos.matheusvicente.dev.br/loja/" target="_blank" rel="noopener noreferrer">https://projetos.matheusvicente.dev.br/loja/</a></p>
 
-<a href="http://example.com/" target="_blank">example</a>
 
 ### Sobre o projeto
 Realizada a criação de um e-commerce simples utilizando o framework Django. Projeto do curso [Curso de Python 3 - Do Básico Ao Avançado (Completo)](https://www.udemy.com/course/python-3-do-zero-ao-avancado/) sem intenção de ser utilizado para produção. 
@@ -34,19 +33,42 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-- Com o ambiente criado e ativado, podemos instalar os requerimentos para rodar o projeto
+- Com o ambiente criado e ativado, podemos instalar os requerimentos para rodar o projeto:
 
 ```
 pip install -r requirements.txt
 ```
 
-
-
-
+- Realizar migrações e criar um usuário:
 
 ```
+python manage.py migrate
+```
+- E para criar o usuário administrador:
+
+```
+python manage.py createsuperuser
+```
+- Preencher com as informações:
+ Nome de usuário, E-mail, senha, e repetir senha. Se aparecer a mensagem que senha é fraca você pode prosseguir apertando Y. 
+ 
+![alt text](https://i.ibb.co/LZbQ0Cf/Screenshot-20220321193315-756x204.png)
 
 
 
-Pronto!
+- Agora você já pode rodar na sua máquina, com o comando:
+```
+python manage.py runserver
+```
+
+- Para acessar a área administrativa basta entrar no endereço padrão:
+```
+http://127.0.0.1:8000/admin/
+```
+Aqui você pode criar usuários, adcionar produtos e "gerenciar" a loja !
+
+Qualquer dúvida ou sugestão estou disponível no e-mail:
+<a href="mailto:contato@matheusvicente.dev.br?subject=Questions" title=""> contato@matheusvicente.dev.br</a>
+
+
 
