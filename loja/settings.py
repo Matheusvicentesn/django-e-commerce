@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 from django.contrib.messages import constants
-from local import *
+from environment_var import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -91,10 +91,10 @@ WSGI_APPLICATION = 'loja.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'USER': 'zero',
-        'PASSWORD': '@Zero0000',
-        'HOST': '127.0.0.1',
-        'NAME': 'django',
+        'USER': userdb,
+        'PASSWORD': passworddb,
+        'HOST': hostdb,
+        'NAME': namedb,
 	'OPTIONS': {
         'sql_mode': 'traditional',
 	'init_command': 'SET default_storage_engine=INNODB',
