@@ -29,7 +29,7 @@ environ.Env.read_env()
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'django-insecure-kgl^mcpxh^#6%ncg&_itqwh2!o2_g%=pz+#xi!#^i3)ndcp72h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -97,15 +97,8 @@ WSGI_APPLICATION = 'loja.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': env('USERDB'),
-        'PASSWORD': env('PASSWORDD'),
-        'HOST': env('HOSTDB'),
-        'NAME': env('NAMEDB'),
-        'OPTIONS': {
-            'sql_mode': 'traditional',
-            'init_command': 'SET default_storage_engine=INNODB',
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -178,4 +171,4 @@ SESSION_SAVE_EVERY_REQUEST = False
 
 # Para sessions em arquivos ao invés da base de dados
 # SESSION_ENGINE = "django.contrib.sessions.backends.file"
-# SESSION_FILE_PATH = '/home/luizotavio/Desktop/temp'
+
