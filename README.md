@@ -5,6 +5,17 @@
 ### Sobre o projeto
 Realizada a criação de um e-commerce simples utilizando o framework Django. Projeto do curso [Curso de Python 3 - Do Básico Ao Avançado (Completo)](https://www.udemy.com/course/python-3-do-zero-ao-avancado/) sem intenção de ser utilizado para produção. 
 
+- Projeto conta com:
+* Cadastro de usuário
+* Login e Logout para usuários
+* Área para usuário com histórico dos pedidos
+* Adicionar e remover do carrinho
+* Carrinho que navega entre sessões
+* Busca
+* CPF único no cadastro
+
+Se você for dar uma olhada no <a href="https://projetos.matheusvicente.dev.br/loja/" target="_blank" rel="noopener noreferrer">site</a> recomendo que se for cadastrar um usuário use o gerador de dados da <a href="https://www.4devs.com.br/gerador_de_pessoas" target="_blank" rel="noopener noreferrer">4devs</a>
+
 ### A ser desenvolvido
 No curso em questão o projeto não conta com um sistema de cálculo de frete, que pretendo implementar no projeto em breve, inclusive você pode me ajudar. Também pretendo melhorar a parte do Front-End que está totalmente básica e foram retirados arquivos do próprio curso mencionado.
 
