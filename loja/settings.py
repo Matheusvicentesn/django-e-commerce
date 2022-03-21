@@ -9,17 +9,16 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import environ
 import os
 from pathlib import Path
 from django.contrib.messages import constants
-from environment_var import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-#ENV
-import environ
+# ENV
 
 # Initialise environment variables
 env = environ.Env()
@@ -101,12 +100,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'USER': env('USERDB'),
         'PASSWORD': env('PASSWORDD'),
-        'HOST':env('HOSTDB'),
+        'HOST': env('HOSTDB'),
         'NAME': env('NAMEDB'),
-	'OPTIONS': {
-        'sql_mode': 'traditional',
-	'init_command': 'SET default_storage_engine=INNODB',
-    }
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+            'init_command': 'SET default_storage_engine=INNODB',
+        }
     }
 }
 
@@ -180,5 +179,3 @@ SESSION_SAVE_EVERY_REQUEST = False
 # Para sessions em arquivos ao invés da base de dados
 # SESSION_ENGINE = "django.contrib.sessions.backends.file"
 # SESSION_FILE_PATH = '/home/luizotavio/Desktop/temp'
-
-
