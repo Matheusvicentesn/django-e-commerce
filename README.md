@@ -1,5 +1,5 @@
 # Projeto E-commerce 
-deployed on aws at: https://projetos.matheusvicente.dev.br/loja/
+<p>deployed on aws at: <a href="https://projetos.matheusvicente.dev.br/loja/" target="_blank" rel="noopener noreferrer">https://projetos.matheusvicente.dev.br/loja/</a></p>
 
 ### Sobre o projeto
 Realizada a criação de um e-commerce simples utilizando o framework Django. Projeto do curso [Curso de Python 3 - Do Básico Ao Avançado (Completo)](https://www.udemy.com/course/python-3-do-zero-ao-avancado/) sem intenção de ser utilizado para produção. 
