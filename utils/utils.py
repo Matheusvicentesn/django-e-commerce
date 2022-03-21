@@ -1,5 +1,8 @@
 def formata_preco(val):
-    return f'R$ {val:.2f}' .replace('.', ',')
+    a = 'R$ {:,.2f}'.format(float(val))
+    b = a.replace(',','a')
+    c = b.replace('.',',')
+    return (c.replace('a','.'))
 
 def cart_qtd(cart):
     return sum([item['quantidade'] for item in cart.values()])

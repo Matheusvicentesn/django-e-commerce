@@ -2,7 +2,6 @@ from ast import arg
 from email import utils
 from pickletools import optimize
 from tabnanny import verbose
-from tkinter import CASCADE
 from django.db import models
 from PIL import Image
 import os
